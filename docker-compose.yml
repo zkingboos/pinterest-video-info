@@ -1,6 +1,9 @@
 version: '3.8'
 
 services:
-  pvi:
+  pinterestvideoinfo:
+    container_name: pvi
+    restart: always # Restart if container crash or something else
     image: zkingboos/pinterestvideoinfo
-  
+    environment:
+      - DISCORD_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxx.xxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxx
