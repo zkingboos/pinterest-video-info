@@ -14,6 +14,10 @@ class EnviromentVariable(object):
     CHANNEL_ID: int = getenv("CHANNEL_ID")
 
 
+def ends_mp4_extension(info):
+    return info["url"].endswith(".mp4")
+
+
 class DiscordPinterestInfo(commands.Bot):
     def __init__(self):
         super().__init__(command_prefix=".")
@@ -24,14 +28,8 @@ class DiscordPinterestInfo(commands.Bot):
             # print(json.dumps(info))
             target_url_video = (
                 info
-                if info["url"].endswith(".mp4")
-                else (
-                    list(
-                        filter(
-                            lambda tuple: tuple["url"].endswith(".mp4"), info["formats"]
-                        )
-                    )
-                )[0]
+                if ends_mp4_extension(info)
+                else (list(filter(ends_mp4_extension, info["formats"])))[0]
             )["url"]
             await context.send(target_url_video)
 
